@@ -20,6 +20,7 @@
 /* ***************** SERVER CODE ****************/
 
 #include <stdio.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string.h>
@@ -59,8 +60,12 @@ int main(){
   newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 
   /* ---- Send message to the socket of the incoming connection ----*/
-  strcpy(buffer,"Hello World\n");
-  send(newSocket,buffer,13,0);
-
+  while(1)
+  {
+    strcpy(buffer,"Hello World\n");
+    send(newSocket,buffer,13,0);
+    sleep(2);
+  }
+  
   return 0;
 } 
